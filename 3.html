@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+</head>
+<body>
+
+
+<script src="bower_components/angular/angular.js"></script>
+
+<script>
+    angular.module('myApp', []).controller('MyController', function (MyInterval) {
+
+
+        MyInterval.greet('sayHello',1000).then(function(data){
+            console.log(data);
+        });
+
+
+
+    }).factory('MyInterval',function($q) {
+        function sayHello(){
+           console.log('Hello World HAHAHAHA');
+        }
+
+        return {
+            greet:function(fuc,number){
+                return $q(function(resolve, reject){
+                    setTimeout(function() {
+
+                        resolve(fuc());
+                    },number);
+                });
+            }
+            }
+
+    })
+</script>
+
+<div ng-controller="MyController"></div>
+</body>
+</html>

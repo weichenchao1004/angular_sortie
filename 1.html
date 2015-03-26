@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>RootScope</title>
+    <link rel="stylesheet" href="base.css"/>
+</head>
+<body>
+
+
+<script src="bower_components/angular/angular.js"></script>
+
+<div ng-include=" 'templateId.html' "></div>
+
+
+
+<script>
+    angular.module('myApp', []).run(function($templateCache) {
+        $templateCache.put('templateId.html', 'This is the content of the template');
+    }).controller('MyController', function ($scope) {
+        $scope.message = 'hello world';
+            });
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    d
+    <script src="bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myapp',[]).controller('MyController', function (Github) {
+            Github.search('angularjs').then(function(data) {
+                console.log('The number of repos is :' + data);
+            });
+        }).factory('Github', function ($http, $q) {
+            return {
+                search: function (term) {
+                    return $q (function (resolve, reject) {
+                        $http.get('https://api.github.com/search/repositories?q=' + term)
+                                .then(function (data) {
+                                    console.log(data);
+                                    resolve(data);
+                                },
+                                function (data) {
+                                    console.log(data);
+                                    reject(data);
+                                });
+                    });
+                }
+            }
+        }).config(function($httpProvider){
+                    $httpProvider.interceptors.push(function($q){
+                        return {
+                            'request':function(config){return config},
+
+                            'response':function(response){return response.data.items.length;},
+                            'responseError':function(rejection){return $q.reject(rejection);}
+                        }
+                    })
+                })
+    </script>
+</head>
+<body>
+<div ng-controller="MyController"></div>
+</body>
+</html>
+<script>
+
+
+
+
+
+    //passportJS
+    //passport-local
+    //mongoose
+    //passport-local-mongoose
+</script>
